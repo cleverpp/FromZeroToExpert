@@ -35,6 +35,10 @@
 
 - 视口(viewport)
 - 包含块(containing block)
+  + 根元素所在的包含块是ICB初始包含块，连续媒体则是viewpoint，页面媒体则是页面区域。
+  + 相对定位或static定位的包含块是最近的祖先块容器或最近的格式化上下文
+  + 固定定位的包含块是viewpoint
+  + 绝对定位的包含块是最近一个非static定位的祖先，直至ICB
 - BFC(block formatting context)
   + 浮动定位和清除浮动时只会应用于同一个BFC内的元素。浮动不会影响其它BFC中元素的布局，而清除浮动只能清除同一BFC中在它前面的元素的浮动。外边距折叠（Margin collapsing）也只会发生在属于同一BFC的块级元素之间。
   + 对应一个独立、封闭的渲染区域，子元素的CSS样式不会影响BFC元素外部
@@ -44,10 +48,10 @@
   
 > Floats, absolutely positioned elements, block containers (such as inline-blocks, table-cells, and table-captions) that are not block boxes, and block boxes with 'overflow' other than 'visible' (except when that value has been propagated to the viewport) establish new block formatting contexts for their contents.
 - IFC(inline formatting context)
-  + 虚拟的矩形框，框内不包含块级盒子
+  + 虚拟的矩形框，框内不包含块级盒子
   + IFC内部的元素，按从左到右、从上到下的顺序排布；
-  + 可设置水平方向的magin、border、padding
-  + 垂直方向可使用vertical-align来设置对齐方式
+  + 可设置水平方向的magin、border、padding
+  + 垂直方向可使用vertical-align来设置对齐方式
   + The width of a line box is determined by a containing block and the presence of floats. 
   + The height of a line box is determined by the rules given in the section on line height calculations.
 - 定位(positioning)
@@ -55,8 +59,12 @@
   + position的值默认为static，可选值有static | relative | absolute | fixed | inherit
   + static定位，其top、left、right、bottom属性无效。
   + 相对定位relative，其top、left、right、bottom属性指的相对其在文档流的位置。
-  + 绝对定位absolute，其top、left、right、bottom属性指的相对其所在的**包含快**
+  + 绝对定位absolute，其top、left、right、bottom属性指的相对其所在的**包含快**(最近一个非static定位的父元素，直至ICB)
   + 固定定位fixed，相对于viewport进行定位，不会随滚动而移动。
+- 浮动(float)
+  + A float is a box that is shifted to the left or right on the current line.
+  + A floated box is shifted to the left or right until its outer edge touches the containing block edge or the outer edge of another float. If there is a line box, the outer top of the floated box is aligned with the top of the current line box.
+  + 清除浮动clear：当前元素如果要清除浮动，清除的是前面声明的浮动元素的浮动
 
 
 ## 参考(即本人的学习的路径)
