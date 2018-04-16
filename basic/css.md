@@ -35,10 +35,10 @@
 
 - 视口(viewport)
 - 包含块(containing block)
-  + 根元素所在的包含块是ICB初始包含块，连续媒体则是viewpoint，页面媒体则是页面区域。
-  + 相对定位或static定位的包含块是最近的祖先块容器或最近的格式化上下文
-  + 固定定位的包含块是viewpoint
-  + 绝对定位的包含块是最近一个非static定位的祖先，直至ICB
+  + 根元素所在的包含块是ICB初始包含块，连续媒体则是viewpoint，页面媒体则是页面区域。
+  + 相对定位或static定位的包含块是最近的祖先块容器或最近的格式化上下文
+  + 固定定位的包含块是viewpoint
+  + 绝对定位的包含块是最近一个非static定位的祖先，直至ICB
 - BFC(block formatting context)
   + 浮动定位和清除浮动时只会应用于同一个BFC内的元素。浮动不会影响其它BFC中元素的布局，而清除浮动只能清除同一BFC中在它前面的元素的浮动。外边距折叠（Margin collapsing）也只会发生在属于同一BFC的块级元素之间。
   + 对应一个独立、封闭的渲染区域，子元素的CSS样式不会影响BFC元素外部
