@@ -64,7 +64,9 @@
 - 浮动(float)
   + A float is a box that is shifted to the left or right on the current line.
   + A floated box is shifted to the left or right until its outer edge touches the containing block edge or the outer edge of another float. If there is a line box, the outer top of the floated box is aligned with the top of the current line box.
-  + 清除浮动clear：当前元素如果要清除浮动，清除的是前面声明的浮动元素的浮动
+  + 清除浮动clear：当前元素如果要清除浮动，清除的是前面声明的浮动元素的浮动
+
+
 
 
 ## 参考(即本人的学习的路径)
