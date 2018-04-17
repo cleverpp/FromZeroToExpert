@@ -67,8 +67,6 @@
   + 清除浮动clear：当前元素如果要清除浮动，清除的是前面声明的浮动元素的浮动
 
 
-
-
 ## 参考(即本人的学习的路径)
 1. [W3C技术资料: 理解CSS规范](http://www.chinaw3c.org/archives/369/)
 2. [css的历史与原理](http://www.nowamagic.net/librarys/veda/detail/192)
@@ -77,5 +75,5 @@
 5. [css2.2](https://www.w3.org/TR/CSS22/)
 6. [深入理解CSS优先级](https://www.cnblogs.com/starof/p/4387525.html)
 7. [CSS basic box model](https://www.w3.org/TR/css3-box/)
-
-[css mdn](https://developer.mozilla.org/zh-CN/docs/Web/CSS)
+8. [css mdn](https://developer.mozilla.org/zh-CN/docs/Web/CSS)
+9. [深入理解 CSS：字体度量、line-height 和 vertical-align](https://zhuanlan.zhihu.com/p/25808995)
