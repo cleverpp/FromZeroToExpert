@@ -26,8 +26,8 @@
 ### ajax
 ### 浏览器
 ### 服务器
-## 高级（框架原理）
+## 高级（原理/代码分析）
 ### zepto/jquery
 ### vue/react/angular
-### gulp/grunt/webpack/browserify/parcel
+### gulp/grunt/webpack/rollup
 ## 专家（项目管理&自研）
