@@ -41,5 +41,38 @@ AST抽象语法树即五个步骤中的 语法分析之后中间代码生成之�
 5. 代码打包工具 webpack
 
 ## 基于AST如何将React项目转ReactNative
-这个问题的回答在AST的生成小节中说明过，首先将React项目中的代码解析成AST，然后对AST进行遍历（traverse），把不符合ReactNative使用规范中的节点（Node）转换（transform）成符合规范的内容，例如，本来在react项目引用的react-dom的 ImportDeclaration节点删掉，添加引用react-native的 ImportDeclaration节点，经过一系列的转换后最后得到一个新的AST，将该新的AST生成编译后的目标代码，到此即完成了转换。这么听起来是不是还挺简单的，so young so naive！
+这个问题的回答在AST的生成小节中说明过，首先将React项目中的代码解析成AST，然后对AST进行遍历（traverse），把不符合ReactNative使用规范中的节点（Node）转换（transform）成符合规范的内容，例如，本来在react项目引用的react-dom的 ImportDeclaration节点删掉，添加引用react-native的 ImportDeclaration节点，经过一系列的转换后最后得到一个新的AST，将该新的AST生成目标代码，到此即完成了转换。这么听起来是不是还挺简单的，so young so naive！
 
+在接下来的篇幅中重点介绍将React项目转换为ReactNative项目需要进行那些工作
+
+### 定义规范
+如果不定义规范，同样是React项目，写出来的代码五花八门，对这些代码进行转换的工作是无法收敛。所以定义代码规范是转换可以实现的前提。代码规范中包括：生命周期函数的使用、组件的定义及范围、第三方库的引用范围、css的使用规范、编码规范等等。让大家遵循规范的最好办法是提供项目模板 或者脚手架等。
+
+### UI组件库
+在普通React项目中，我们的JSX中混杂着原生html标签和自定义的组件，如果是对这样的代码进行转换，难度会比较大，原生标签非常丰富，很多标签没有对应的ReactNative组件，这样的标签在进行转换时不能仅做简单的Identifier转换，需要额外增加许多代码。既然是这样，更好的办法是提供一套抹平差异的UI组件规范，基于React实现一套该组件，基于ReactNative实现一套该组件，在编写React项目中就直接使用该UI组件，在转换时处理起来就比较容易。
+
+### 编译器
+在前期的三端合一项目中，我们将ReactNative项目转换为React项目的的react-native-web，其实现原理即使用h5来实现ReactNative的组件，再利用webpack编译时将对react-native的引用替换为react-native-web。同样的，在React转ReactNative时，我们可以将react-native-web作为我们React项目的基础UI库，只是webpack无法将React项目编译成ReactNative环境的代码，而是需要我们基于AST实现一个编译器。
+
+编译器的实现原理即前文中反复提到的解析-转换-生成目标代码的过程，而在具体实现时，我们需要考虑的有：JS代码的编译、CSS的编译、其它类型文件的编译。
+
+### 第三方库的处理
+对于项目中不可缺少的第三方库，例如React全家桶中的React-Router，需要进行react-native的适配。例如 基于react-navigation实现react-router的API。
+
+对于仅在web中可使用，而ReactNative项目无法实现的第三方库要禁止使用，或采取其它方案
+
+### Native原生能力的调用
+无论是React项目还是ReactNative项目，都有需要调用原生能力的需求。React项目中调用原生能力一般是利用cordova或jsbridge实现，而在 React Native 中则是通过NativeModules直接使用原生模块导出的方法。
+
+在处理这一块比较好的方式和UI组件库是类似的，先定义好一套API，然后基于React和ReactNative各实现一套。
+
+### 其它
+1. package.json文件，在转换后要安装转换ReactNative项目中需要的依赖
+2. 开发模式的项目运行
+3. 生产模式的项目包
+
+## 总结
+1. 编译可以分为五个基本步骤:词法分析、语法分析、语义分析及中间代码的生成、优化、目标代码的生成
+2. 对于解释型语言（例如 JavaScript）来说，通过词法分析 -> 语法分析 -> 语法树，就可以开始解释执行了
+3. 一般来说，将一种结构化语言的代码编译成另一种类似的结构化语言的代码经过解析成AST-遍历并转换AST-将新的AST生成目标代码
+4. 将React项目转换为ReactNative项目需要：定义规范、UI组件库、编译器、第三方库的处理、Native原生能力的调用、项目运行等
